@@ -1,4 +1,7 @@
+import csv
+
 books = dict()
+path = "Books.csv"
 
 while(True):
     print("""
@@ -22,11 +25,17 @@ while(True):
             continue
         else:
             books[book_id] = [book_title, book_pages, book_price]
+            with open('Books.csv', 'a', newline='') as csv_file:
+                writer = csv.writer(csv_file)
+                book_details = [book_id,book_title,book_price,book_pages]
+                writer.writerow(book_details)
             continue
 
     if choice == "b":
-        for key,value in books.items():
-            print(key,":",value)
+        with open('Books.csv', 'r') as csv_file:
+            reader = csv.reader(csv_file)
+            for row in reader:
+                print(row)
         continue
 
     if choice == "c":
